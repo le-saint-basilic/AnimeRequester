@@ -2,7 +2,7 @@ const options = {
     method: 'GET',
     params: { page: '1', size: '10', search: 'Naruto' },
     headers: {
-        'x-rapidapi-key': 'b18a8308b6msh18ba19d3bcbde53p1997d1jsn66bb838806fa',
+        'x-rapidapi-key': null,
         'x-rapidapi-host': 'anime-db.p.rapidapi.com'
     }
 };
@@ -10,6 +10,22 @@ const url = new URL('https://anime-db.p.rapidapi.com/anime');
 
 
 
+
+async function testKey(key) {
+    const param = new URLSearchParams({
+        page: '1',
+        size: 1
+    });
+    options["headers"]["x-rapidapi-key"] = key;
+    try {
+        const response = await fetch(url, options);
+        if (!response.ok) {
+            options["headers"]["x-rapidapi-key"] = null;
+        }
+    } catch (error) {
+        console.error(error);
+    }
+}
 
 async function searchAnime(nom = null, id = null, classement = null) {
     const param = new URLSearchParams({
