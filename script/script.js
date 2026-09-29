@@ -1,28 +1,30 @@
 let cle = sessionStorage.getItem("cle");
-if (cle == null){
+if (cle == null) {
     window.location = "html/key.html";
 }
 
 const form = document.getElementById("search-form");
 const textAwn = document.getElementById("search-param");
 const typeAwn = document.getElementById("search-type");
+const cardBox = document.getElementById("cards");
 
 form.addEventListener("submit", onSubmitForm)
 
 
-function onSubmitForm(event){
+function onSubmitForm(event) {
     event.preventDefault();
+    console.log(typeAwn.value)
     switch (typeAwn.value) {
         case 'title':
-            searchAnime(nom=textAwn.value)
+            searchAnimeByName(textAwn.value)
             break;
         case 'id':
-            searchAnime(id=textAwn.value)
+            searchAnimeById(textAwn.value)
             break;
         case 'rank':
-            searchAnime(titre=textAwn.value)
+            searchAnimeByRank(textAwn.value)
             break;
-    
+
         default:
             break;
     }
@@ -37,38 +39,78 @@ const options = {
         'x-rapidapi-host': 'anime-db.p.rapidapi.com'
     }
 };
-const url = new URL('https://anime-db.p.rapidapi.com/anime');
 
-
-async function searchAnime(nom = null, id = null, classement = null) {
+async function searchAnimeByName(nom) {
+    const url = new URL('https://anime-db.p.rapidapi.com/anime');
     const param = new URLSearchParams({
         page: '1',
-        size: 10
+        size: 10,
+        search: nom
     });
-    if (nom != null) {
-        param.set("search", nom)
-    }
-    if (id != null) {
-        param.set("id", id)
-    }
-    if (classement != null) {
-        param.set("ranking", classement)
-    }
-    if (id != null || id != null) {
-        param.set("size", 1)
-    }
     url.search = new URLSearchParams(param.toString());
+    search10(url)
+}
+
+async function searchAnimeById(id) {
+    const url = new URL('https://anime-db.p.rapidapi.com/anime/by-id/'+id);
+    search(url)
+}
+
+async function searchAnimeByRank(rank) {
+    const url = new URL('https://anime-db.p.rapidapi.com/anime/by-ranking/'+rank);
+    search(url)
+}
+
+async function search(url) {
     try {
         const response = await fetch(url, options);
         if (!response.ok) {
             throw new Error(`HTTP error! Status: ${response.status}`);
-            console.log(response);
         }
-
         const data = await response.json();
-        console.log(data);
-        //afficher
+        cards.innerHTML="";
+        afficherAnime(data)
     } catch (error) {
         console.error('Failed to fetch anime data:', error);
     }
+}
+
+async function search10(url) {
+    try {
+        const response = await fetch(url, options);
+        if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+        const data = await response.json()
+        cards.innerHTML="";
+        afficherListeAnime(data["data"]);
+    } catch (error) {
+        console.error('Failed to fetch anime data:', error);
+    }
+}
+
+function afficherListeAnime(listAnime) {
+    listAnime.forEach(element => {
+        afficherAnime(element);
+    });    
+}
+
+function afficherAnime(anime) {
+    let card = document.createElement("div")
+    let title = document.createElement("div")
+    let picture = document.createElement("img")
+    let description = document.createElement("div")
+
+    card.appendChild(title)
+    card.appendChild(picture)
+    card.appendChild(description)
+
+    title.innerHTML = anime["title"]
+
+    picture.src = anime["image"]
+    picture.alt = "Image de " + anime["titre"]
+
+    description.innerText = anime["synopsis"]
+
+    cards.appendChild(card)
 }
