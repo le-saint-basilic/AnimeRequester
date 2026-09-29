@@ -68,6 +68,7 @@ async function search(url) {
             throw new Error(`HTTP error! Status: ${response.status}`);
         }
         const data = await response.json();
+        cards.innerHTML="";
         afficherAnime(data)
     } catch (error) {
         console.error('Failed to fetch anime data:', error);
@@ -81,6 +82,7 @@ async function search10(url) {
             throw new Error(`HTTP error! Status: ${response.status}`);
         }
         const data = await response.json()
+        cards.innerHTML="";
         afficherListeAnime(data["data"]);
     } catch (error) {
         console.error('Failed to fetch anime data:', error);
@@ -94,7 +96,6 @@ function afficherListeAnime(listAnime) {
 }
 
 function afficherAnime(anime) {
-    cards.innerHTML="";
     let card = document.createElement("div")
     let title = document.createElement("div")
     let picture = document.createElement("img")
