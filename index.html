@@ -1,57 +1,60 @@
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
- <meta charset="UTF-8">
- <meta name="viewport" content="width=device-width, initial-scale=1.0">
- <meta name="description" content="Anime Requester : recherchez des animes par titre, identifiant ou classement.">
- <title>Anime Requester</title>
- <link rel="stylesheet" href="css/style.css">
- <script defer src="script/script.js"></script>
- <script defer src="script/darkmode.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Anime Requester : recherchez des animes par titre, identifiant ou classement.">
+    <title>Anime Requester</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script defer src="script/script.js"></script>
+    <script defer src="script/darkmode.js"></script>
 </head>
+
 <body id="main">
- <a class="skip-link" href="#resultats">Aller aux résultats</a>
+    <a class="skip-link" href="#resultats">Aller aux résultats</a>
 
- <header>
- <h1>Anime Requester</h1>
- </header>
+    <header>
+        <h1>Anime Requester</h1>
+    </header>
 
- <main>
- <section aria-labelledby="titre-recherche">
- <h2 id="titre-recherche" class="visually-hidden">Recherche</h2>
- <form id="search-form">
- <div class="field">
- <label for="search-type">Choisissez un type de recherche :</label>
- <select id="search-type" name="search-type">
- <option value="title">Recherche par titre</option>
- <option value="id">Recherche par identifiant</option>
- <option value="rank">Recherche par classement</option>
- </select>
- </div>
+    <main>
+        <section aria-labelledby="titre-recherche">
+            <h2 id="titre-recherche" class="visually-hidden">Recherche</h2>
+            <form id="search-form">
+                <div class="field">
+                    <label for="search-type">Choisissez un type de recherche :</label>
+                    <select id="search-type" name="search-type">
+                        <option value="title">Recherche par titre</option>
+                        <option value="id">Recherche par identifiant</option>
+                        <option value="rank">Recherche par classement</option>
+                    </select>
+                </div>
 
- <div class="field">
- <label for="search-param">Paramètre :</label>
- <input type="text" id="search-param" name="search-param" required>
- </div>
+                <div class="field">
+                    <label for="search-param">Paramètre :</label>
+                    <input type="text" id="search-param" name="search-param" required>
+                </div>
 
- <div class="buttons">
- <button type="submit">Rechercher</button>
- <button type="reset">Effacer</button>
- </div>
- </form>
- <p id="message" role="status" aria-live="polite"></p>
- </section>
+                <div class="buttons">
+                    <button type="submit">Rechercher</button>
+                    <button type="reset">Effacer</button>
+                </div>
+            </form>
+            <p id="message" role="status" aria-live="polite"></p>
+        </section>
 
- <section id="resultats" aria-labelledby="titre-resultats" tabindex="-1">
- <h2 id="titre-resultats" class="visually-hidden">Résultats</h2>
- <div id="cards" class="cards">
- </div>
- </section>
- </main>
+        <section id="resultats" aria-labelledby="titre-resultats" tabindex="-1">
+            <h2 id="titre-resultats" class="visually-hidden">Résultats</h2>
+            <div id="cards" class="cards">
+            </div>
+        </section>
+    </main>
 
- <footer>
- <p>Projet des 3 Sinjes – Données : API Anime DB (RapidAPI)</p>
- <button id="bg-switch">Thème: </button>
- </footer>
+    <footer>
+        <p>Projet des 3 Sinjes – Données : API Anime DB (RapidAPI)</p>
+        <button id="bg-switch">Thème: </button>
+    </footer>
 </body>
+
 </html>
