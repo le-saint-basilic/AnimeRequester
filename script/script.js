@@ -3,11 +3,37 @@ if (cle == null){
     window.location = "html/key.html";
 }
 
+const form = document.getElementById("search-form");
+const textAwn = document.getElementById("search-param");
+const typeAwn = document.getElementById("search-type");
+
+form.addEventListener("submit", onSubmitForm)
+
+
+function onSubmitForm(event){
+    event.preventDefault();
+    switch (typeAwn.value) {
+        case 'title':
+            searchAnime(nom=textAwn.value)
+            break;
+        case 'id':
+            searchAnime(id=textAwn.value)
+            break;
+        case 'rank':
+            searchAnime(titre=textAwn.value)
+            break;
+    
+        default:
+            break;
+    }
+    textAwn.value = "";
+}
+
 const options = {
     method: 'GET',
     params: { page: '1', size: '10', search: 'Naruto' },
     headers: {
-        'x-rapidapi-key': null,
+        'x-rapidapi-key': cle,
         'x-rapidapi-host': 'anime-db.p.rapidapi.com'
     }
 };
@@ -36,6 +62,7 @@ async function searchAnime(nom = null, id = null, classement = null) {
         const response = await fetch(url, options);
         if (!response.ok) {
             throw new Error(`HTTP error! Status: ${response.status}`);
+            console.log(response);
         }
 
         const data = await response.json();
