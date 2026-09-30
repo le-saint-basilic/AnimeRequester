@@ -1,3 +1,16 @@
+body{
+    font-family: Arial, Helvetica, sans-serif;
+}
+
 #invalide{
     display: none;
+}
+
+#main.dark{
+    background-color: rgb(12, 12, 12);
+    color: whitesmoke;
+}
+#main.light{
+    background-color: whitesmoke;
+    color:black;
 }
