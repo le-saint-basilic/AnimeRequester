@@ -1,12 +1,13 @@
-const btValider = document.getElementById("valider");
+const formKey = document.getElementById("form-key");
 const txtCle = document.getElementById("cle");
 const invalide = document.getElementById("invalide");
 const url = new URL('https://anime-db.p.rapidapi.com/anime');
 
-btValider.addEventListener("click", valider)
+formKey.addEventListener("submit", valider)
 
 
-function valider(){
+function valider(event){
+    event.preventDefault();
     testKey(txtCle.value);
 }
 
