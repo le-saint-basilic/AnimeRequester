@@ -7,13 +7,16 @@ const form = document.getElementById("search-form");
 const textAwn = document.getElementById("search-param");
 const typeAwn = document.getElementById("search-type");
 const cardBox = document.getElementById("cards");
+const labelParam = document.getElementById("param-label");
+
 
 form.addEventListener("submit", onSubmitForm)
+typeAwn.addEventListener("change", onChangeSelect)
 
+onChangeSelect()
 
 function onSubmitForm(event) {
     event.preventDefault();
-    console.log(typeAwn.value)
     switch (typeAwn.value) {
         case 'title':
             searchAnimeByName(textAwn.value)
@@ -29,6 +32,27 @@ function onSubmitForm(event) {
             break;
     }
     textAwn.value = "";
+}
+
+function onChangeSelect(){
+    textAwn.value = ""
+    
+    switch (typeAwn.value) {
+        case 'title':
+            labelParam.innerText = "Titre : "
+            textAwn.placeholder = "ex : Frieren";
+            break;
+        case 'id':
+            labelParam.innerText = "Identifiant : "
+            textAwn.placeholder = "ex : 21";
+            break;
+        case 'rank':
+            labelParam.innerText = "Classement : "
+            textAwn.placeholder = "ex : 404";
+            break;
+        default:
+            break;
+    }
 }
 
 const options = {
