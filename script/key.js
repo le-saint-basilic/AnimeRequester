@@ -1,7 +1,17 @@
 const formKey = document.getElementById("form-key");
 const txtCle = document.getElementById("cle");
+const btnMen = document.getElementById("btnMenu");
 const invalide = document.getElementById("invalide");
 const url = new URL('https://anime-db.p.rapidapi.com/anime');
+
+
+let cle = sessionStorage.getItem("cle");
+if (cle != null) {
+    let btn = document.createElement("a");
+    btn.href = "../index.html";
+    btn.innerText = "Menu"
+    btnMen.appendChild(btn);
+}
 
 formKey.addEventListener("submit", valider)
 
