@@ -124,17 +124,32 @@ function afficherAnime(anime) {
     let title = document.createElement("div")
     let picture = document.createElement("img")
     let description = document.createElement("div")
+    let btn = document.createElement("button")
 
-    card.appendChild(title)
-    card.appendChild(picture)
-    card.appendChild(description)
+    card.className = "card"
+    title.className = "card-title"
+    description.className = "card-desc"
+    btn.className = "btn-more"
+    btn.type = "button"
+    btn.innerText = "Afficher plus"
 
-    title.innerHTML = anime["title"]
+    title.innerText = anime["title"]
 
     picture.src = anime["image"]
-    picture.alt = "Image de " + anime["titre"]
+    picture.alt = "Image de " + anime["title"]
 
     description.innerText = anime["synopsis"]
 
+    btn.addEventListener("click", () => {
+        const open = description.classList.toggle("expanded")
+        btn.innerText = open ? "Afficher moins" : "Afficher plus"
+    })
+
+    card.append(title, picture, description, btn)
     cards.appendChild(card)
+
+    // Cache le bouton si la description tient déjà en 3 lignes
+    if (description.scrollHeight <= description.clientHeight) {
+        btn.hidden = true
+    }
 }
