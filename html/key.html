@@ -4,22 +4,33 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Anime Requester</title>
+    <title>Anime Requester - Validation de la clé</title>
     <link rel="shortcut icon" href="../img/favicon.png" type="image/x-icon">
     <link href="../css/style.css" rel="stylesheet">
     <script defer src="../script/key.js"></script>
 </head>
 
 <body id="body_cle">
-    <nav id="btnMenu">
-
+    <nav id="btnMenu" aria-label="Menu principal">
     </nav>
-    <section id="invalide">Clé non valide</section>
-    <main>
+    <div id="invalide" role="alert" aria-live="polite" class="hidden">Clé non valide</div>
+
+    <main>       
         <form id="form-key">
-            <label for="cle">Entrez votre clé : </label>
-            <input type="text" id="cle" name="cle" required minlength="50" maxlength="50" size="55">
-            <button id="valider">Valider</button>
+            <label for="cle">Entrez votre clé (50 caractères) :</label>
+            
+            <input 
+                type="text" 
+                id="cle" 
+                name="cle" 
+                required 
+                minlength="50" 
+                maxlength="50" 
+                size="55"
+                autocomplete="off"
+                aria-describedby="aide-cle"
+            >
+            <button type="submit" id="valider">Valider la clé</button>
         </form>
     </main>
 </body>
