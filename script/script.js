@@ -1,8 +1,3 @@
-let cle = sessionStorage.getItem("cle");
-if (cle == null) {
-    window.location = "html/key.html";
-}
-
 const form = document.getElementById("search-form");
 const textAwn = document.getElementById("search-param");
 const typeAwn = document.getElementById("search-type");
@@ -47,61 +42,52 @@ function onChangeSelect(){
             textAwn.placeholder = "ex : 21";
             break;
         case 'rank':
-            labelParam.innerText = "Classement : "
-            textAwn.placeholder = "ex : 404";
+            labelParam.innerText = "Score : "
+            textAwn.placeholder = "ex : 4";
             break;
         default:
             break;
     }
 }
 
-const options = {
-    method: 'GET',
-    params: { page: '1', size: '10', search: 'Naruto' },
-    headers: {
-        'x-rapidapi-key': cle,
-        'x-rapidapi-host': 'anime-db.p.rapidapi.com'
-    }
-};
-
 async function searchAnimeByName(nom) {
-    const url = new URL('https://anime-db.p.rapidapi.com/anime');
+    const url = new URL('https://api.tenrai.org/v1/anime');
     const param = new URLSearchParams({
         page: '1',
-        size: 10,
-        search: nom
+        limit: 10,
+        q: nom
     });
     url.search = new URLSearchParams(param.toString());
-    search10(url)
+    search10(url);
 }
 
 async function searchAnimeById(id) {
-    const url = new URL('https://anime-db.p.rapidapi.com/anime/by-id/'+id);
-    search(url)
+    const url = new URL('https://api.tenrai.org/v1/anime');
+    const param = new URLSearchParams({
+        page: '1',
+        limit: 1,
+        min_id: id,
+        max_id: id
+    });
+    url.search = new URLSearchParams(param.toString());
+    search10(url);
 }
 
 async function searchAnimeByRank(rank) {
-    const url = new URL('https://anime-db.p.rapidapi.com/anime/by-ranking/'+rank);
-    search(url)
-}
-
-async function search(url) {
-    try {
-        const response = await fetch(url, options);
-        if (!response.ok) {
-            throw new Error(`HTTP error! Status: ${response.status}`);
-        }
-        const data = await response.json();
-        cards.innerHTML="";
-        afficherAnime(data)
-    } catch (error) {
-        console.error('Failed to fetch anime data:', error);
-    }
+    const url = new URL('https://api.tenrai.org/v1/anime');
+    const param = new URLSearchParams({
+        page: '1',
+        limit: 10,
+        min_score: Math.min(Math.max(rank - 0.25, 1), 10),
+        max_score: Math.max(Math.min(parseInt(rank) + 0.25, 10), 0)
+    });
+    url.search = new URLSearchParams(param.toString());
+    search10(url);
 }
 
 async function search10(url) {
     try {
-        const response = await fetch(url, options);
+        const response = await fetch(url);
         if (!response.ok) {
             throw new Error(`HTTP error! Status: ${response.status}`);
         }
@@ -133,10 +119,10 @@ function afficherAnime(anime) {
     btn.type = "button"
     btn.innerText = "Afficher plus"
 
-    title.innerText = anime["title"]
+    title.innerText = anime["titles"][0]["title"]
 
-    picture.src = anime["image"]
-    picture.alt = "Image de " + anime["title"]
+    picture.src = anime["images"]["jpg"]["image_url"]
+    picture.alt = "Image de " + anime["titles"][0]["title"]
 
     description.innerText = anime["synopsis"]
 
