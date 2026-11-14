@@ -2,7 +2,7 @@
 
 A responsive and accessible web application that allows users to search for anime by title, ID, or ranking using the **Tenrai API**. Developed by **Les 3 Sinjes**.
 
-🚀 **Live Demo:** [View on GitHub Pages](https://le-saint-basilic.github.io/AnimeRequester/html/key.html)
+🚀 **Live Demo:** [View on GitHub Pages](https://le-saint-basilic.github.io/AnimeRequester/)
 
 ---
 
